@@ -68,3 +68,47 @@ console.log(10 > 5 && 3 > 8);
 // sedangkan === membandingkan nilai sekaligus tipe datanya.
 
 
+// ==========================================
+// LANGKAH 2: PERBAIKI 4 KESALAHAN
+// ==========================================
+
+const hargaKopi = 18000;
+const hargaTeh = 7500;
+let jumlahMember = 5;
+let sudahMember = true;
+let uangDiterima = 51000; // FIX: gunakan number agar bisa dibandingkan dengan ===
+
+// FIX 1: Hitung 2 kopi dan 2 teh dengan benar.
+let totalPesanan = (hargaKopi * 2) + (hargaTeh * 2);
+
+// FIX 2: Gunakan === karena uang dan total sekarang bertipe number.
+let uangPas = uangDiterima === totalPesanan;
+
+// FIX 3: Gunakan += agar jumlah member benar-benar bertambah.
+jumlahMember += 1;
+
+// FIX 4: Gunakan || karena diskon berlaku jika salah satu syarat terpenuhi.
+let dapatDiskon = sudahMember || totalPesanan > 100000;
+
+console.log("Hasil Langkah 2:");
+console.log(totalPesanan, uangPas, jumlahMember, dapatDiskon);
+
+// Jawaban pertanyaan Langkah 2
+
+// 1. Kesalahan pertama adalah rumus total yang tidak sesuai,
+// sehingga diperbaiki menjadi harga 2 kopi ditambah harga 2 teh.
+// Kesalahan kedua adalah tipe uang berupa string, sehingga diubah
+// menjadi number agar bisa dibandingkan dengan ===.
+// Kesalahan ketiga adalah jumlahMember + 1 tidak menyimpan perubahan,
+// sehingga diganti dengan jumlahMember += 1.
+// Kesalahan keempat adalah penggunaan &&, padahal cukup salah satu
+// syarat diskon terpenuhi, sehingga diganti dengan ||.
+
+// 2. Jika menggunakan === saat uangDiterima masih berupa string,
+// hasilnya false karena string berbeda tipe dengan number.
+// Supaya true, uangDiterima diubah menjadi number 51000.
+
+// 3. && berarti kedua syarat harus benar, sedangkan || berarti
+// cukup salah satu syarat benar. Pada dapatDiskon, member yang
+// sudah terdaftar bisa mendapat diskon meskipun totalnya tidak
+// lebih dari 100000.
