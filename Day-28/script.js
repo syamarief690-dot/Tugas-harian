@@ -112,3 +112,92 @@ console.log(totalPesanan, uangPas, jumlahMember, dapatDiskon);
 // cukup salah satu syarat benar. Pada dapatDiskon, member yang
 // sudah terdaftar bisa mendapat diskon meskipun totalnya tidak
 // lebih dari 100000.
+
+
+
+// ==========================================
+// LANGKAH 3: MEMBUAT PROGRAM KASIR SENDIRI
+// ==========================================
+
+// Informasi barang
+const NAMA_BARANG = "Kopi Susu";
+const HARGA_SATUAN = 18000;
+const TARIF_PAJAK = 0.11;
+
+// Data transaksi
+let jumlahBeli = 3;
+let uangDibayar = 70000;
+
+// Menghitung subtotal dan pajak
+let subtotal = HARGA_SATUAN * jumlahBeli;
+let pajak = subtotal * TARIF_PAJAK;
+let totalBayar = subtotal + pajak;
+
+// Operator penugasan ringkas pertama: menambah biaya kemasan.
+const BIAYA_KEMASAN = 2000;
+totalBayar += BIAYA_KEMASAN;
+
+// Operator penugasan ringkas kedua: mengurangi potongan harga.
+const POTONGAN_HARGA = 1000;
+totalBayar -= POTONGAN_HARGA;
+
+// Menghitung kembalian
+let kembalian = uangDibayar - totalBayar;
+
+// Tiga variabel Boolean
+let uangCukup = uangDibayar >= totalBayar;
+let gratisKantong = subtotal >= 100000 || jumlahBeli >= 5;
+let jumlahGenap = jumlahBeli % 2 === 0;
+
+// Contoh penggunaan tanda kurung yang mengubah hasil.
+let hitungDenganKurung = HARGA_SATUAN * (jumlahBeli + 1);
+let hitungTanpaKurung = HARGA_SATUAN * jumlahBeli + 1;
+
+// Menampilkan hasil transaksi
+console.log("\n===== STRUK KASIR =====");
+console.log("Nama barang      :", NAMA_BARANG);
+console.log("Harga satuan     : Rp" + HARGA_SATUAN);
+console.log("Jumlah beli      :", jumlahBeli);
+console.log("Subtotal         : Rp" + subtotal);
+console.log("Pajak (11%)      : Rp" + pajak);
+console.log("Biaya kemasan    : Rp" + BIAYA_KEMASAN);
+console.log("Potongan harga   : Rp" + POTONGAN_HARGA);
+console.log("Total bayar      : Rp" + totalBayar);
+console.log("Uang dibayar     : Rp" + uangDibayar);
+console.log("Kembalian        : Rp" + kembalian);
+console.log("Uang cukup?      :", uangCukup);
+console.log("Gratis kantong?  :", gratisKantong);
+console.log("Jumlah genap?    :", jumlahGenap);
+console.log("Dengan kurung    :", hitungDenganKurung);
+console.log("Tanpa kurung     :", hitungTanpaKurung);
+
+// Jawaban pertanyaan Langkah 3
+
+// 1. uangCukup berarti uang yang dibayar cukup untuk menutupi
+// Hasilnya true karena Rp70000 lebih besar dari
+// total pembayaran Rp60940.
+
+// 2. Pada jumlahGenap, jumlah beli adalah 3 sehingga hasilnya false.
+// Jika menggunakan uangCukup && jumlahGenap, hasilnya false.
+// Jika menggunakan uangCukup || jumlahGenap, hasilnya true
+// karena uangCukup bernilai true.
+
+// 3. Dengan kurung, 18000 * (3 + 1) menghasilkan 72000.
+// Tanpa kurung, 18000 * 3 + 1 menghasilkan 54001.
+// Kurung membuat penjumlahan dikerjakan lebih dahulu.
+
+
+// ==========================================
+// BONUS: MENGUBAH MENIT MENJADI JAM
+// ==========================================
+
+const TOTAL_MENIT = 250;
+let jumlahJam = Math.floor(TOTAL_MENIT / 60);
+let sisaMenit = TOTAL_MENIT % 60;
+
+console.log("\n===== KONVERSI WAKTU =====");
+console.log(jumlahJam + " jam " + sisaMenit + " menit");
+
+// / digunakan untuk membagi total menit menjadi jam.
+// Math.floor membulatkan hasil pembagian ke bawah.
+// % digunakan untuk mendapatkan sisa menit setelah dibagi 60.
