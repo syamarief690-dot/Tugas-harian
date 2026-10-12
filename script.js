@@ -1,453 +1,203 @@
-// Program pencatatan data usaha
-// Dibuat dan diperbaiki untuk latihan JavaScript dasar
+// TUGAS DAY 28 - JAVASCRIPT
+// Nama: Muhammad Arief Syam 
 
-// ============================================================
-// LANGKAH 1 - PERBAIKI KODE AWAL
-// ============================================================
+// ==========================================
+// LANGKAH 1: TEBAK DULU, BARU CEK
+// ==========================================
 
-const namaUsaha = "Kopi Senja";
-const kotaUsaha = "Yogyakarta";
-const tahunBerdiri = 2020; // FIX: Tahun dibuat number agar bisa dihitung sebagai angka.
+// Baris 1
+// Tebakan: 13
+// Hasil asli: 13, hasil dari 13 adalah 3*2=6 hasil dari 6+7=13
+console.log(7 + 3 * 2);
+
+// Baris 2
+// Tebakan: 20
+// Hasil asli: 20, hasil dari 20 adalah 7+3=10 hasil dari 10*2=20
+console.log((7 + 3) * 2);
+
+// Baris 3
+// Tebakan: 2
+// Hasil asli: 2, hasil dari 2 adalah sisa pembagian dari hasil 15/5=3
+console.log(17 % 5);
+
+// Baris 4
+// Tebakan: 8
+// Hasil asli: 8, hasil dari 8 adalah 2 pangkat 3 (2**3)= 8
+console.log(2 ** 3);
+
+// Baris 5
+// Tebakan: true
+// Hasil asli: true, kenapa bisa menjadi true karena angka 5 dan string "5" dianggap sama karena nilainya mirip
+console.log(5 == "5");
+
+// Baris 6
+// Tebakan: false
+// Hasil asli: false, kenapa bisa menjadi false karena Membandingkan nilai dan tipe datanya sekaligus
+console.log(5 === "5");
+
+// Baris 7
+// Tebakan: false
+// Hasil asli: false, kenapa bisa menjadi false karena && tidak bisa berbeda nilai hanya bisa nilai true dan true
+console.log(true && false);
+
+// Baris 8
+// Tebakan: true
+// Hasil asli: true, kenapa bisa menjadi true karen cukup satu kondisi yang true
+console.log(true || false);
+
+// Baris 9
+// Tebakan: false
+// Hasil asli: false, kenapa bisa menjadi false karena operator "!" membalik nilai true menjadi false
+console.log(!true);
+
+// Baris 10
+// Tebakan: false
+// Hasil asli: false, kenapa bisa menjadi false karena 10 > 5 bernilai true, tetapi 3 > 8 bernilai false.
+console.log(10 > 5 && 3 > 8);
+
+
+// Jawaban pertanyaan Langkah 1
+
+// 1. Tebakan yang paling sulit adalah baris 5 dan 6 karena
+// operator == dan === memiliki aturan perbandingan berbeda.
+
+// 2. Perkalian dikerjakan lebih dahulu daripada penjumlahan,
+// jadi 3 * 2 = 6 lalu 7 + 6 = 13.
+
+// 3. Operator == membandingkan nilai dengan konversi tipe tertentu,
+// sedangkan === membandingkan nilai sekaligus tipe datanya.
+
+
+// ==========================================
+// LANGKAH 2: PERBAIKI 4 KESALAHAN
+// ==========================================
+
+const hargaKopi = 18000;
+const hargaTeh = 7500;
+let jumlahMember = 5;
+let sudahMember = true;
+let uangDiterima = 51000; // FIX: gunakan number agar bisa dibandingkan dengan ===
+
+// FIX 1: Hitung 2 kopi dan 2 teh dengan benar.
+let totalPesanan = (hargaKopi * 2) + (hargaTeh * 2);
+
+// FIX 2: Gunakan === karena uang dan total sekarang bertipe number.
+let uangPas = uangDiterima === totalPesanan;
+
+// FIX 3: Gunakan += agar jumlah member benar-benar bertambah.
+jumlahMember += 1;
+
+// FIX 4: Gunakan || karena diskon berlaku jika salah satu syarat terpenuhi.
+let dapatDiskon = sudahMember || totalPesanan > 100000;
+
+console.log("Hasil Langkah 2:");
+console.log(totalPesanan, uangPas, jumlahMember, dapatDiskon);
+
+// Jawaban pertanyaan Langkah 2
+
+// 1. Kesalahan pertama adalah rumus total yang tidak sesuai,
+// sehingga diperbaiki menjadi harga 2 kopi ditambah harga 2 teh.
+// Kesalahan kedua adalah tipe uang berupa string, sehingga diubah
+// menjadi number agar bisa dibandingkan dengan ===.
+// Kesalahan ketiga adalah jumlahMember + 1 tidak menyimpan perubahan,
+// sehingga diganti dengan jumlahMember += 1.
+// Kesalahan keempat adalah penggunaan &&, padahal cukup salah satu
+// syarat diskon terpenuhi, sehingga diganti dengan ||.
+
+// 2. Jika menggunakan === saat uangDiterima masih berupa string,
+// hasilnya false karena string berbeda tipe dengan number.
+// Supaya true, uangDiterima diubah menjadi number 51000.
+
+// 3. && berarti kedua syarat harus benar, sedangkan || berarti
+// cukup salah satu syarat benar. Pada dapatDiskon, member yang
+// sudah terdaftar bisa mendapat diskon meskipun totalnya tidak
+// lebih dari 100000.
+
+
+
+// ==========================================
+// LANGKAH 3: MEMBUAT PROGRAM KASIR SENDIRI
+// ==========================================
+
+// Informasi barang
+const NAMA_BARANG = "Kopi Susu";
+const HARGA_SATUAN = 18000;
 const TARIF_PAJAK = 0.11;
-let statusBuka = true;
-let website = null; // FIX: Deklarasi website dibuat satu kali dan diberi nilai null.
-let jumlahProduk = 3;
 
-// FIX: Data harga dan nama sementara tetap dipakai pada langkah awal
-// agar perbaikan kode awal dapat diperiksa sebelum struktur datanya diubah.
-let produk = ["Kopi Susu", "Es Teh Manis", "Roti Bakar"];
-let hargaProduk = [18000, 7500, 15000];
-
-// FIX: JavaScript membedakan huruf besar dan kecil sehingga nama variabel
-// harus sama persis dengan deklarasinya.
-console.log(namaUsaha);
-
-// FIX: Console harus ditulis dengan huruf C besar karena nama objeknya console.
-console.log("Kota: " + kotaUsaha);
-
-// FIX: tahunBerdiri sekarang number sehingga operasi + menghasilkan penjumlahan.
-console.log("Tahun berdiri berikutnya: " + (tahunBerdiri + 1));
-
-// FIX: TARIF_PAJAK adalah const sehingga nilainya tidak boleh diganti.
-// Nilai 0.11 tetap digunakan sesuai ketentuan tugas.
-
-let hargaKopiSetelahPajak =
-    hargaProduk[0] * (1 + TARIF_PAJAK); // FIX: Operator perkalian harus menggunakan *.
-console.log("Harga kopi + pajak: " + hargaKopiSetelahPajak);
-
-let hargaTermurahAwal = Math.min(
-    hargaProduk[0],
-    hargaProduk[1],
-    hargaProduk[2]
-);
-
-console.log("Termurah: " + hargaTermurahAwal);
-
-// FIX: Index 3 belum memiliki data sehingga hasilnya undefined.
-// Baris tetap ditampilkan untuk menunjukkan perilaku array.
-console.log("Produk ke-4: " + produk[3]);
-
-// FIX: Komentar blok ditutup agar kode status usaha dapat dijalankan.
-console.log("Status buka: " + statusBuka);
-
-/*
-============================================================
-CATATAN BUG
-============================================================
-
-No | Baris/bagian | Jenis | Penyebab | Perbaikan
-
-1 | let website; lalu let website = null;
-  | Error
-  | Variabel website dideklarasikan dua kali menggunakan let dalam scope yang sama.
-  | Digabung menjadi satu deklarasi: let website = null;
-
-2 | var jumlahProduk = 3;
-  | Tidak error tetapi salah aturan tugas
-  | var tidak diperbolehkan pada bagian utama tugas.
-  | Diganti menjadi let jumlahProduk = 3;
-
-3 | console.log(namausaha);
-  | Error
-  | namausaha berbeda dengan namaUsaha karena JavaScript bersifat case-sensitive.
-  | Menggunakan namaUsaha.
-
-4 | Console.log(...)
-  | Error
-  | Console bukan objek yang sama dengan console karena JavaScript membedakan huruf besar dan kecil.
-  | Menggunakan console.log(...).
-
-5 | tahunBerdiri = "2020";
-  | Tidak error tetapi hasil salah
-  | Nilainya bertipe string sehingga operator + melakukan penggabungan teks.
-  | Mengubah menjadi number: 2020.
-
-6 | TARIF_PAJAK = 0.12;
-  | Error
-  | Variabel const tidak boleh diberi nilai baru.
-  | Baris penggantian nilai dihapus dan tarif tetap 0.11.
-
-7 | hargaProduk[0] x (1 + TARIF_PAJAK);
-  | Error
-  | JavaScript tidak menggunakan huruf x sebagai operator perkalian.
-  | Menggunakan operator *.
-
-8 | console.log("Produk ke-4: " + produk[3]);
-  | Tidak error tetapi hasilnya tidak berisi nama produk.
-  | Index 3 belum mempunyai data karena array hanya memiliki index 0 sampai 2.
-  | Pada langkah berikutnya daftar produk ditambah dan dibuat lebih terstruktur.
-
-9 | Blok komentar /* ...  tidak ditutup.
-  | Error
-  |/* Komentar blok yang tidak ditutup membuat bagian kode berikutnya dianggap sebagai komentar.
-  | Menambahkan  sebelum console.log status.
-
-============================================================
-
-JAWABAN LANGKAH 1
-
-1. Mengapa namausaha dan namaUsaha berbeda?
-JavaScript bersifat case-sensitive sehingga huruf besar dan kecil dianggap berbeda. Jadi namausaha dan namaUsaha dianggap sebagai dua nama identifier yang berbeda.
-
-2. Mengapa TARIF_PAJAK ditolak sedangkan statusBuka boleh diubah?
-TARIF_PAJAK dibuat menggunakan const sehingga nilainya tidak boleh diberikan nilai baru. statusBuka menggunakan let sehingga nilainya masih boleh diubah selama masih dalam scope yang sama.
-
-3. Mengapa "2020" + 1 menghasilkan "20201"?
-Karena "2020" merupakan string, operator + menggabungkan string dengan angka menjadi teks. Saya memilih mengubah tahunBerdiri menjadi number 2020 supaya operasi matematika dapat dilakukan dengan benar.
-*/
-
-
-// ============================================================
-// LANGKAH 2 - BENAHI STRUKTUR DATA
-// ============================================================
-
-// Object digunakan supaya informasi usaha yang saling berkaitan berada
-// dalam satu tempat dan lebih mudah dipanggil berdasarkan nama properti.
-const usaha = {
-    nama: "Kopi Senja",
-    pemilik: "Arief",
-    kota: "Yogyakarta",
-    tahunBerdiri: 2020,
-    statusBuka: true,
-    nomorWhatsApp: "08123456789",
-    website: null
-};
-
-// Array object dipilih agar nama dan harga suatu produk tidak mudah tertukar.
-const daftarProduk = [
-    {
-        nama: "Kopi Susu",
-        harga: 18000
-    },
-    {
-        nama: "Es Teh Manis",
-        harga: 7500
-    },
-    {
-        nama: "Roti Bakar",
-        harga: 15000
-    },
-    {
-        nama: "Cokelat Panas",
-        harga: 12000
-    }
-];
-
-// Notasi titik digunakan karena nama properti usaha sudah diketahui secara langsung.
-console.log("Nama usaha:", usaha.nama);
-
-// Kurung siku menunjukkan bahwa nama properti dapat diakses menggunakan string.
-console.log("Kota:", usaha["kota"]);
-
-// Index 0 berarti elemen pertama karena array dimulai dari angka 0.
-console.log("Produk pertama:", daftarProduk[0].nama);
-
-// Index terakhir dihitung dari panjang array agar tidak bergantung pada angka
-// tertentu jika jumlah produk nanti berubah.
-console.log(
-    "Produk terakhir:",
-    daftarProduk[daftarProduk.length - 1].nama
-);
-
-/*
-JAWABAN LANGKAH 2
-
-1. Mengapa nomor WhatsApp lebih tepat sebagai string?
-Nomor WhatsApp bukan angka yang akan dihitung, tetapi identitas kontak. String juga menjaga angka 0 di bagian depan agar tidak hilang.
-
-2. Mengapa website menggunakan null?
-null menunjukkan bahwa website memang belum memiliki nilai. undefined biasanya berarti nilai belum diberikan atau properti tersebut belum tersedia.
-
-3. Mengapa daftarProduk[4] bukan produk ke-4?
-Karena array dimulai dari index 0, sehingga produk ke-4 berada pada index 3. Jika mengakses daftarProduk[4], hasilnya adalah undefined karena index tersebut belum ada.
-*/
-
-
-// ============================================================
-// LANGKAH 3 - PERHITUNGAN DAN TAMPILAN
-// ============================================================
-
-const TAHUN_SEKARANG = 2026;
-
-// Tarif pajak tidak diubah agar tetap mengikuti ketentuan tugas.
-const tarifPajak = TARIF_PAJAK;
-
-// Semua nilai pada perhitungan ini tidak perlu diubah setelah dibuat,
-// sehingga const lebih aman daripada let.
-const usiaUsaha = TAHUN_SEKARANG - usaha.tahunBerdiri;
-
-const hargaSetelahPajak = daftarProduk.map(function (produkItem) {
-    return produkItem.harga * (1 + tarifPajak);
-});
-
-const semuaHarga = daftarProduk.map(function (produkItem) {
-    return produkItem.harga;
-});
-
-const hargaTermurah = Math.min(...semuaHarga);
-const hargaTermahal = Math.max(...semuaHarga);
-
-const statusUsaha = usaha.statusBuka ? "Buka" : "Tutup";
-const keteranganWebsite = usaha.website ?? "belum ada";
-
-console.log(`
-===== KARTU USAHA =====
-Nama Usaha  : ${usaha.nama}
-Pemilik     : ${usaha.pemilik}
-Kota        : ${usaha.kota}
-Usia Usaha  : ${usiaUsaha} tahun
-Status      : ${statusUsaha}
-Website     : ${keteranganWebsite}
-
-Daftar Produk (harga + PPN 11%):
-${daftarProduk
-    .map(
-        (produkItem, index) =>
-            `${index + 1}. ${produkItem.nama} : Rp ${hargaSetelahPajak[index]}`
-    )
-    .join("\n")}
-
-Termurah : Rp ${hargaTermurah}
-Termahal : Rp ${hargaTermahal}
-=======================
-`);
-
-
-/*
-JAWABAN LANGKAH 3
-
-1. Alasan memilih const atau let:
-- namaUsaha, kotaUsaha, tahunBerdiri, TARIF_PAJAK, usaha, daftarProduk, TAHUN_SEKARANG,
-  tarifPajak, usiaUsaha, hargaSetelahPajak, semuaHarga, hargaTermurah,
-  hargaTermahal, statusUsaha, dan keteranganWebsite menggunakan const karena
-  referensinya tidak perlu diganti.
-- statusBuka dan jumlahProduk pada bagian awal menggunakan let karena nilainya
-  masih memungkinkan untuk diubah. Pada struktur usaha, statusBuka disimpan
-  sebagai properti object.
-
-2. Perhitungan manual:
-Contoh produk Es Teh Manis:
-Harga awal = Rp7.500
-Pajak = 11% × Rp7.500
-Pajak = Rp825
-Harga setelah pajak = Rp7.500 + Rp825
-Harga setelah pajak = Rp8.325
-
-Hasil program juga Rp8.325 sehingga perhitungannya sama.
-
-3. Apakah hasil tercetak berubah otomatis jika harga object diubah?
-Tidak. Hasil yang sudah dicetak di console merupakan nilai yang sudah dihitung
-pada saat console.log dijalankan. Jika object diubah, perhitungannya harus
-dijalankan kembali agar menghasilkan nilai baru.
-*/
-
-
-// BUKTI PERUBAHAN DATA DAN PERHITUNGAN ULANG
-
-console.log("Harga awal produk pertama:", daftarProduk[0].harga);
-
-daftarProduk[0].harga = 20000;
-
-console.log("Harga produk pertama setelah diubah:", daftarProduk[0].harga);
-
-const hargaBaruSetelahPajak =
-    daftarProduk[0].harga * (1 + TARIF_PAJAK);
-
-console.log(
-    "Hasil perhitungan ulang setelah harga berubah:",
-    hargaBaruSetelahPajak
-);
-
-
-// ============================================================
-// LANGKAH 4 - DETEKTIF TIPE DATA
-// ============================================================
-
-// Tebakan: "number"
-console.log(typeof 42);
-// Hasil asli: "number" ✔
-
-// Tebakan: "string"
-console.log(typeof "42");
-// Hasil asli: "string" ✔
-
-// Tebakan: "boolean"
-console.log(typeof true);
-// Hasil asli: "boolean" ✔
-
-// Tebakan: "undefined"
-console.log(typeof undefined);
-// Hasil asli: "undefined" ✔
-
-// Tebakan: "null"
-// Catatan: ini tebakan yang sering muncul, tetapi ternyata berbeda.
-console.log(typeof null);
-// Hasil asli: "object" ✘
-
-// Tebakan: "array"
-// Catatan: Array sebenarnya dilaporkan typeof sebagai object.
-console.log(typeof [1, 2, 3]);
-// Hasil asli: "object" ✘
-
-// Tebakan: "object"
-console.log(typeof { nama: "Budi" });
-// Hasil asli: "object" ✔
-
-// Tebakan: "53"
-console.log("5" + 3);
-// Hasil asli: "53" ✔
-
-// Tebakan: "15"
-console.log("5" * 3);
-// Hasil asli: 15 ✔
-
-// Tebakan: "NaN"
-console.log("abc" * 2);
-// Hasil asli: NaN ✔
-
-// Tebakan: "Infinity"
-console.log(10 / 0);
-// Hasil asli: Infinity ✔
-
-// Tebakan: "object"
-console.log(typeof usaha.website);
-// Hasil asli: "object" ✔
-
-
-/*
-JAWABAN LANGKAH 4
-
-1. Tebakan yang meleset:
-typeof null menghasilkan "object", bukan "null". Ini merupakan perilaku
-lama JavaScript dan bukan berarti null benar-benar merupakan object biasa.
-
-typeof [1, 2, 3] juga menghasilkan "object". Untuk mengetahui bahwa suatu
-nilai merupakan array, cara yang lebih tepat adalah Array.isArray(nilai).
-
-2. Apakah null adalah object?
-Tidak. null adalah nilai khusus yang berarti tidak ada nilai object yang
-sedang diberikan, tetapi typeof null menghasilkan "object" karena perilaku
-historis JavaScript.
-
-3. Mengapa "5" + 3 dan "5" * 3 berbeda?
-Operator + dapat digunakan untuk penggabungan string sehingga hasilnya "53".
-Operator * memaksa nilai string "5" menjadi angka sehingga hasilnya 15.
-*/
-
-
-// ============================================================
-// LANGKAH 5 - MODIFIKASI DADAKAN
-// ============================================================
-
-// Produk baru ditambahkan agar daftar produk dapat berkembang tanpa membuat
-// array harga terpisah yang berisiko memiliki urutan berbeda.
-daftarProduk.push({
-    nama: "Matcha Latte",
-    harga: 16000
-});
-
-// Properti Instagram ditambahkan langsung pada object usaha.
-usaha.instagram = "@kopisenja";
-
-// Total harga dihitung dari seluruh produk setelah produk baru dimasukkan.
-const totalHargaProduk = daftarProduk.reduce(
-    (totalHarga, produkItem) => totalHarga + produkItem.harga,
-    0
-);
-
-console.log(`
-===== MODIFIKASI USAHA =====
-Instagram   : ${usaha.instagram}
-Jumlah Produk: ${daftarProduk.length}
-Total Harga : Rp ${totalHargaProduk}
-============================
-`);
-
-
-/*
-JAWABAN LANGKAH 5
-
-1. Bagian yang perlu diubah:
-Saya hanya perlu menambahkan object produk baru, properti Instagram, dan
-perhitungan total harga. Struktur data usaha dan cara mengambil data produk
-tidak perlu diubah karena sudah menggunakan object dan array yang fleksibel.
-
-2. Contoh statement:
-a. const totalHargaProduk = daftarProduk.reduce(...);
-   Statement tersebut menghasilkan deklarasi sebuah variabel.
-
-b. usaha.instagram = "@kopisenja";
-   Statement tersebut memberikan nilai baru pada properti object.
-
-Contoh expression:
-a. daftarProduk.length
-   Expression ini dievaluasi menjadi jumlah elemen dalam array.
-
-b. totalHarga + produkItem.harga
-   Expression ini dievaluasi menjadi hasil penjumlahan dua nilai harga.
-*/
-
-
-// ============================================================
-// BONUS - VAR VS LET
-// ============================================================
-
-// var sengaja digunakan hanya di bagian bonus sesuai aturan tugas.
-
-if (true) {
-    var nomorBonus = 100;
-    let nomorLet = 200;
-
-    console.log("var di dalam blok:", nomorBonus);
-    console.log("let di dalam blok:", nomorLet);
-}
-
-// var memiliki function scope sehingga masih bisa diakses di luar blok if.
-console.log("var di luar blok:", nomorBonus);
-
-// let memiliki block scope sehingga tidak bisa diakses dari luar blok.
-// Baris berikut sengaja TIDAK dijalankan karena akan menyebabkan ReferenceError.
-// console.log("let di luar blok:", nomorLet);
-
-
-// var juga dapat dideklarasikan ulang dengan nama yang sama.
-var statusBonus = "awal";
-var statusBonus = "berubah";
-
-console.log("var setelah deklarasi ulang:", statusBonus);
-
-
-// Untuk let, deklarasi ulang dengan nama yang sama dalam scope yang sama
-// akan menyebabkan SyntaxError sehingga tidak dijalankan.
-// let namaBonus = "Arief";
-// let namaBonus = "Budi";
-
-
-/*
-PENJELASAN BONUS
-
-Dalam program besar, var dapat menyebabkan bug ketika sebuah variabel yang
-seharusnya hanya berlaku di dalam blok ternyata dapat digunakan di luar blok.
-Deklarasi ulang var juga dapat tidak sengaja mengganti nilai variabel yang
-dipakai bagian program lain, sehingga let atau const lebih aman untuk kode modern.
-*/
+// Data transaksi
+let jumlahBeli = 3;
+let uangDibayar = 70000;
+
+// Menghitung subtotal dan pajak
+let subtotal = HARGA_SATUAN * jumlahBeli;
+let pajak = subtotal * TARIF_PAJAK;
+let totalBayar = subtotal + pajak;
+
+// Operator penugasan ringkas pertama: menambah biaya kemasan.
+const BIAYA_KEMASAN = 2000;
+totalBayar += BIAYA_KEMASAN;
+
+// Operator penugasan ringkas kedua: mengurangi potongan harga.
+const POTONGAN_HARGA = 1000;
+totalBayar -= POTONGAN_HARGA;
+
+// Menghitung kembalian
+let kembalian = uangDibayar - totalBayar;
+
+// Tiga variabel Boolean
+let uangCukup = uangDibayar >= totalBayar;
+let gratisKantong = subtotal >= 100000 || jumlahBeli >= 5;
+let jumlahGenap = jumlahBeli % 2 === 0;
+
+// Contoh penggunaan tanda kurung yang mengubah hasil.
+let hitungDenganKurung = HARGA_SATUAN * (jumlahBeli + 1);
+let hitungTanpaKurung = HARGA_SATUAN * jumlahBeli + 1;
+
+// Menampilkan hasil transaksi
+console.log("\n===== STRUK KASIR =====");
+console.log("Nama barang      :", NAMA_BARANG);
+console.log("Harga satuan     : Rp" + HARGA_SATUAN);
+console.log("Jumlah beli      :", jumlahBeli);
+console.log("Subtotal         : Rp" + subtotal);
+console.log("Pajak (11%)      : Rp" + pajak);
+console.log("Biaya kemasan    : Rp" + BIAYA_KEMASAN);
+console.log("Potongan harga   : Rp" + POTONGAN_HARGA);
+console.log("Total bayar      : Rp" + totalBayar);
+console.log("Uang dibayar     : Rp" + uangDibayar);
+console.log("Kembalian        : Rp" + kembalian);
+console.log("Uang cukup?      :", uangCukup);
+console.log("Gratis kantong?  :", gratisKantong);
+console.log("Jumlah genap?    :", jumlahGenap);
+console.log("Dengan kurung    :", hitungDenganKurung);
+console.log("Tanpa kurung     :", hitungTanpaKurung);
+
+// Jawaban pertanyaan Langkah 3
+
+// 1. uangCukup berarti uang yang dibayar cukup untuk menutupi
+// Hasilnya true karena Rp70000 lebih besar dari
+// total pembayaran Rp60940.
+
+// 2. Pada jumlahGenap, jumlah beli adalah 3 sehingga hasilnya false.
+// Jika menggunakan uangCukup && jumlahGenap, hasilnya false.
+// Jika menggunakan uangCukup || jumlahGenap, hasilnya true
+// karena uangCukup bernilai true.
+
+// 3. Dengan kurung, 18000 * (3 + 1) menghasilkan 72000.
+// Tanpa kurung, 18000 * 3 + 1 menghasilkan 54001.
+// Kurung membuat penjumlahan dikerjakan lebih dahulu.
+
+
+// ==========================================
+// BONUS: MENGUBAH MENIT MENJADI JAM
+// ==========================================
+
+const TOTAL_MENIT = 250;
+let jumlahJam = Math.floor(TOTAL_MENIT / 60);
+let sisaMenit = TOTAL_MENIT % 60;
+
+console.log("\n===== KONVERSI WAKTU =====");
+console.log(jumlahJam + " jam " + sisaMenit + " menit");
+
+// / digunakan untuk membagi total menit menjadi jam.
+// Math.floor membulatkan hasil pembagian ke bawah.
+// % digunakan untuk mendapatkan sisa menit setelah dibagi 60.
