@@ -81,7 +81,7 @@ console.log(cekAngka(5)); // Hasil: bukan negatif
 
 
 // ==========================================
-// LANGKAH 2: PERBAIKI 7 KESALAHAN
+// LANGKAH 2: PERBAIKI 7 KESALAHAN (commit 2)
 // ==========================================
 
 let daftarBelanja = ["Kopi", "Teh", "Roti"];
