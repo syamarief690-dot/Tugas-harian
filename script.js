@@ -1,5 +1,5 @@
 // ==========================================
-// LANGKAH 1: TEBAK DULU, BARU CEK
+// LANGKAH 1: TEBAK DULU, BARU CEK (commit 1)
 // ==========================================
 
 // POTONGAN A
