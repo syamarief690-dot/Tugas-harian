@@ -139,7 +139,7 @@ console.log(hitungTotal(80000, 8800));
 
 
 // ==========================================
-// LANGKAH 3: PROGRAM KASIR SENDIRI
+// LANGKAH 3: PROGRAM KASIR SENDIRI (commit 3)
 // ==========================================
 
 const KASIR_TARIF_PAJAK = 0.11;
