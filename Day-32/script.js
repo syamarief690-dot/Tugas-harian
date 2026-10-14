@@ -367,3 +367,4 @@ console.log(kasirBatalkanItem("Bakso")); // false
 // Kedua baris di atas dijadikan komentar agar tidak menghentikan
 // program. Baris percobaan kasirCariHarga harus ditempatkan sebelum
 // deklarasi function tersebut untuk membuktikan perbedaannya.
+//
