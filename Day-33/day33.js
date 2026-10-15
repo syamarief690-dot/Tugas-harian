@@ -1,6 +1,6 @@
 // ==========================================
 // TUGAS DAY 33 - OBJECT DAN PERULANGAN
-// Nama: Tulis nama kamu
+// Nama: Muhammad Arief Syam
 // ==========================================
 
 
