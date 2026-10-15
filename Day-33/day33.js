@@ -183,7 +183,7 @@ console.log("kataSandi" in akunUji);// false
 
 
 // ==========================================
-// LANGKAH 3: BIKIN KASIR SENDIRI
+// LANGKAH 3: BIKIN KASIR SENDIRI  [commit 3]
 // ==========================================
 
 const kasirKedai = {
