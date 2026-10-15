@@ -5,7 +5,7 @@
 
 
 // ==========================================
-// LANGKAH 1: TEBAK DULU, BARU CEK
+// LANGKAH 1: TEBAK DULU, BARU CEK  [commit 1]
 // ==========================================
 
 // POTONGAN A
@@ -114,7 +114,7 @@ for (let huruf of "Kopi") {
 
 
 // ==========================================
-// LANGKAH 2: PERBAIKI 7 KESALAHAN
+// LANGKAH 2: PERBAIKI 7 KESALAHAN  [commit 2]
 // ==========================================
 
 const warung = {
