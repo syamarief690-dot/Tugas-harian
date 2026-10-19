@@ -199,3 +199,106 @@ karena keduanya memiliki perilaku berbeda saat diakses
 sebelum deklarasi. Saya memahami bahwa urutan kode dan
 jenis deklarasi memengaruhi hasil JavaScript.
 */
+
+
+// ==========================================
+// LANGKAH 2: PERBAIKI 8 KESALAHAN
+// ==========================================
+
+// 1. Scope pesanStok
+const stok = 10;
+if (stok > 5) {
+  let pesanStok = "Stok aman";
+  console.log(pesanStok); // FIX 1: cetak di dalam scope let.
+}
+
+// 2. Scope potongan
+function hitungPotongan(harga) {
+  const potongan = harga * 0.1;
+  return harga - potongan;
+}
+
+// FIX 2: gunakan nilai return, bukan variabel lokal potongan.
+console.log(hitungPotongan(50000)); // 45000
+
+// 3. Hoisting function expression
+// FIX 3: deklarasikan const sebelum dipanggil.
+const sambutan = function () {
+  return "Selamat datang di Kedai Senja";
+};
+console.log(sambutan());
+
+// 4. Temporal dead zone
+// FIX 4: deklarasikan let sebelum digunakan.
+let kota = "Yogyakarta";
+console.log(kota);
+
+// 5. Scope var
+// FIX 5: gunakan let agar total di dalam blok terpisah.
+let totalAwal = 100000;
+if (true) {
+  let totalAwal = 90000;
+}
+console.log(totalAwal); // 100000
+
+// 6. Saldo kas
+let saldoKasLuar = 100000;
+
+function tambahKas(jumlah) {
+  // FIX 6: ubah saldo di scope luar, jangan membuat saldo lokal baru.
+  saldoKasLuar += jumlah;
+}
+
+tambahKas(50000);
+console.log(saldoKasLuar); // 150000
+
+// 7. Nomor antrean
+function buatAntrean() {
+  // FIX 7: letakkan nomor di luar function yang dikembalikan.
+  let nomor = 0;
+
+  return function () {
+    nomor++;
+    return nomor;
+  };
+}
+
+const ambilNomor = buatAntrean();
+console.log(ambilNomor(), ambilNomor(), ambilNomor()); // 1 2 3
+
+// 8. Dompet
+function buatDompet(saldoAwal) {
+  let saldo = saldoAwal;
+
+  return {
+    belanja(jumlah) {
+      saldo -= jumlah;
+    },
+    cekSaldo() {
+      // FIX 8: gunakan variabel privat saldo, bukan this.saldo.
+      return saldo;
+    },
+  };
+}
+
+const dompet = buatDompet(100000);
+dompet.belanja(30000);
+console.log(dompet.cekSaldo()); // 70000
+
+// Jawaban pertanyaan:
+// 1. Kesalahan pertama memakai let di luar bloknya; kedua membaca
+// variabel lokal yang tidak tersedia; ketiga memanggil const sebelum
+// deklarasi; keempat membaca let sebelum inisialisasi; kelima memakai
+// var yang dapat menimpa nilai di luar; keenam mengubah saldo lokal;
+// ketujuh mengatur ulang nomor setiap pemanggilan; kedelapan membaca
+// property object yang tidak ada.
+//
+// 2. Kesalahan 1, 2, 3, dan 4 menimbulkan error pada kode asli.
+// Kesalahan 5, 6, 7, dan 8 tidak selalu error, tetapi hasilnya salah
+// atau tidak sesuai harapan.
+//
+// 3. let saldoKas = 0 di dalam function membuat variabel lokal baru.
+// Ini disebut shadowing, karena nama lokal menutupi nama dari scope luar.
+//
+// 4. this.saldo adalah property object, bukan variabel saldo dalam
+// closure. Karena property tersebut tidak dibuat, hasilnya undefined.
