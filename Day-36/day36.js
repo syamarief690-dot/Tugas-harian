@@ -484,3 +484,34 @@ cekSuasana();
 //
 // 6. diskon10 mengingat persen 0.10 dan diskon25 mengingat persen 0.25
 // dari closure masing-masing, jadi nilai persen tidak perlu dikirim lagi.
+
+// ==========================================
+// BONUS: LET VS VAR
+// ==========================================
+
+// Tebakan:
+// let menghasilkan 0 1 2 karena setiap putaran memiliki binding i sendiri.
+// var menghasilkan 3 3 3 karena semua function membaca j yang sama.
+
+const fungsiLet = [];
+
+for (let i = 0; i < 3; i++) {
+  fungsiLet.push(() => i);
+}
+
+console.log(fungsiLet[0](), fungsiLet[1](), fungsiLet[2]());
+// Hasil: 0 1 2
+
+const fungsiVar = [];
+
+for (var j = 0; j < 3; j++) {
+  fungsiVar.push(() => j);
+}
+
+console.log(fungsiVar[0](), fungsiVar[1](), fungsiVar[2]());
+// Hasil: 3 3 3
+
+// Penjelasan:
+// let membuat binding berbeda untuk setiap putaran perulangan.
+// var menggunakan satu variabel j yang sama, dan function baru
+// dipanggil setelah perulangan selesai sehingga semuanya membaca 3.
