@@ -302,3 +302,185 @@ console.log(dompet.cekSaldo()); // 70000
 //
 // 4. this.saldo adalah property object, bukan variabel saldo dalam
 // closure. Karena property tersebut tidak dibuat, hasilnya undefined.
+
+
+// ==========================================
+// LANGKAH 3: KASIR DENGAN CLOSURE
+// ==========================================
+
+const NAMA_WARUNG = "KEDAI SENJA";
+const TARIF_PAJAK = 0.11;
+
+// Function dipanggil sebelum deklarasi function.
+cetakJudul();
+
+function cetakJudul() {
+  console.log(`===== ${NAMA_WARUNG} =====`);
+}
+
+// Percobaan function expression sebelum deklarasi.
+// Jalankan terpisah untuk melihat error, lalu biarkan sebagai komentar.
+// cetakJudulEkspresi();
+// const cetakJudulEkspresi = () => console.log(NAMA_WARUNG);
+// Hasil: ReferenceError: Cannot access 'cetakJudulEkspresi' before initialization
+
+// Pabrik kasir dengan data privat.
+function buatKasir(namaKasir, modalAwal) {
+  let saldoKas = modalAwal;
+  let jumlahTransaksi = 0;
+  let riwayat = [];
+
+  return {
+    catatPenjualan(namaMenu, harga, jumlah) {
+      const subtotal = harga * jumlah;
+      const pajak = subtotal * TARIF_PAJAK;
+      const totalPenjualan = subtotal + pajak;
+
+      saldoKas += totalPenjualan;
+      jumlahTransaksi++;
+
+      riwayat.push({
+        namaMenu,
+        jumlah,
+        total: totalPenjualan,
+      });
+
+      return totalPenjualan;
+    },
+
+    ambilKas(jumlah) {
+      if (jumlah > saldoKas) {
+        return false;
+      }
+
+      saldoKas -= jumlah;
+      return true;
+    },
+
+    cekSaldo() {
+      return saldoKas;
+    },
+
+    lihatRiwayat() {
+      return riwayat.slice();
+    },
+
+    ringkasan() {
+      console.log(
+        `Kasir ${namaKasir} | Transaksi: ${jumlahTransaksi} | Saldo: Rp${saldoKas.toFixed(0)}`
+      );
+    },
+  };
+}
+
+// Membuat dua kasir dengan data yang terpisah.
+const kasirPagi = buatKasir("Rina", 100000);
+const kasirMalam = buatKasir("Dodi", 50000);
+
+// Tiga penjualan kasir pagi.
+console.log(
+  "Pagi - Nasi Goreng:",
+  kasirPagi.catatPenjualan("Nasi Goreng", 15000, 2).toFixed(0)
+);
+console.log(
+  "Pagi - Es Teh:",
+  kasirPagi.catatPenjualan("Es Teh", 5000, 3).toFixed(0)
+);
+console.log(
+  "Pagi - Mie Goreng:",
+  kasirPagi.catatPenjualan("Mie Goreng", 12000, 2).toFixed(0)
+);
+
+// Dua penjualan kasir malam.
+console.log(
+  "Malam - Kopi:",
+  kasirMalam.catatPenjualan("Kopi", 8000, 2).toFixed(0)
+);
+console.log(
+  "Malam - Roti:",
+  kasirMalam.catatPenjualan("Roti", 6000, 3).toFixed(0)
+);
+
+// Ambil kas: satu berhasil dan satu gagal.
+console.log("Ambil Rp20000:", kasirPagi.ambilKas(20000));
+// Hasil: true
+
+console.log("Ambil Rp999999:", kasirPagi.ambilKas(999999));
+// Hasil: false karena saldo tidak cukup.
+
+// Ringkasan kedua kasir.
+kasirPagi.ringkasan();
+kasirMalam.ringkasan();
+
+// Buktikan saldo privat.
+console.log("Property saldoKas:", kasirPagi.saldoKas);
+// Hasil: undefined
+
+kasirPagi.saldoKas = 999999;
+console.log("Saldo asli setelah dicoba diubah:", kasirPagi.cekSaldo());
+// Hasil: saldo tidak berubah karena saldo privat tidak memakai property
+// kasirPagi.saldoKas.
+
+// Buktikan riwayat merupakan salinan.
+const salinanRiwayat = kasirPagi.lihatRiwayat();
+salinanRiwayat.push({
+  namaMenu: "Menu Palsu",
+  jumlah: 1,
+  total: 1000,
+});
+
+console.log("Panjang salinan:", salinanRiwayat.length);
+// Hasil: 4
+
+console.log("Panjang riwayat asli:", kasirPagi.lihatRiwayat().length);
+// Hasil: 3, karena push dilakukan pada salinan.
+
+// Pabrik function diskon dengan closure.
+function buatPenghitungDiskon(persen) {
+  return (harga) => harga - harga * persen;
+}
+
+const diskon10 = buatPenghitungDiskon(0.10);
+const diskon25 = buatPenghitungDiskon(0.25);
+
+console.log("Harga setelah diskon 10%:", diskon10(80000));
+// Hasil: 72000
+
+console.log("Harga setelah diskon 25%:", diskon25(80000));
+// Hasil: 60000
+
+// Shadowing: nama variabel sama, scope berbeda.
+const suasanaKedai = "Ramai";
+
+function cekSuasana() {
+  const suasanaKedai = "Tenang";
+  console.log("Suasana dalam:", suasanaKedai);
+}
+
+console.log("Suasana luar:", suasanaKedai);
+// Hasil: Suasana luar: Ramai
+
+cekSuasana();
+// Hasil: Suasana dalam: Tenang
+
+// Jawaban pertanyaan:
+// 1. kasirPagi.saldoKas bernilai undefined karena saldoKas adalah
+// variabel lokal privat, bukan property object. Closure membuat method
+// tetap bisa mengakses variabel privat tersebut.
+//
+// 2. Setiap pemanggilan buatKasir membuat lingkungan variabel baru,
+// sehingga saldo kasir Rina dan Dodi terpisah.
+//
+// 3. saldoKas, jumlahTransaksi, riwayat, dan namaKasir tetap diingat
+// oleh method yang dikembalikan karena closure mempertahankan akses
+// ke lingkungan lexical function pembuatnya.
+//
+// 4. TARIF_PAJAK bisa dipakai karena JavaScript mencari variabel
+// berdasarkan lexical scope, termasuk scope luar tempat function dibuat.
+//
+// 5. cetakJudul bisa dipanggil lebih awal karena function declaration
+// mengalami hoisting. Function expression dengan const tidak bisa
+// dipanggil sebelum deklarasinya dijalankan.
+//
+// 6. diskon10 mengingat persen 0.10 dan diskon25 mengingat persen 0.25
+// dari closure masing-masing, jadi nilai persen tidak perlu dikirim lagi.
